@@ -1,3 +1,7 @@
+;TODO :
+; 1. Check if already guessed
+; 2. Check if ship overlapping another
+
 (ns programmin-paradigms.core)
 ; board numbers:
 ; 0 = empty
@@ -98,6 +102,8 @@
 (def player-turn 1)
 ; start application
 (defn main []
+
+  ;INSERT SHIPS
   (doseq [player [1 2]]
     (doseq [s ships]
       (def ship-placed false) ; while ship not placed
@@ -110,25 +116,25 @@
         (println  "Player" player ": insert start position col (1 2 3 4 5 6 7 8 9 10) for ship with size " s)
         (def posCol (parse-int (read-line)))
       ; check if over board
-        (if (or (= direction "h") (= direction "v"))
+        (if (and (or (= direction "h") (= direction "v")) (and (> posRow 0) (> posCol 0)))
           (if (= direction "h")
-            (if (and (some #{(+ posRow (- s 1))} available-cells) (some #{posCol} available-cells)); horizontal
+            (if (and (< (+ posRow s) 11) (< posCol 11)); horizontal
               (do
                 (def ship-placed true)
                 (insertShip s direction posRow posCol player))
               (println "Cell over board, insert ship again =>"))
-            (if (and (some #{posRow} available-cells) (some #{(+ posCol (- s 1))} available-cells)) ; vertical
+            (if (and (< posRow 11) (< (+ posCol s) 11)) ; vertical
               (do
                 (def ship-placed true)
                 (insertShip s direction posRow posCol player))
               (println "Cell over board, insert ship again =>")))
-          (println "Not valid direction, insert ship again =>")))))
+          (println "Not valid selections, insert ship again =>")))))
 
   ;print ships
   (println "Player 1 ships: " player1Ships)
   (println "Player 2 ships: " player2Ships)
 
-  ; game loop
+  ;GAME LOOP
   (while (= gameOver false)
     (do
       (println "Player " player-turn ": attack on row (1 2 3 4 5 6 7 8 9 10)")
