@@ -1,14 +1,10 @@
-;TODO :
-; 1. Check if already guessed
-; 2. Check if ship overlapping another
-
 (ns programmin-paradigms.core)
-; board numbers:
-; 0 = empty
+; board number meanings:
+; 0 = not guessed
 ; 1 = hit
 
 ;define ships
-(def ships [1 3])
+(def ships [1 3 5])
 
 ;define boards
 (def  player1Board
@@ -131,8 +127,8 @@
           (println "Not valid selections, insert ship again =>")))))
 
   ;print ships
-  (println "Player 1 ships: " player1Ships)
-  (println "Player 2 ships: " player2Ships)
+  ;(println "Player 1 ships: " player1Ships)
+  ;(println "Player 2 ships: " player2Ships)
 
   ;GAME LOOP
   (while (= gameOver false)
