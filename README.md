@@ -1,4 +1,4 @@
-# programmin-paradigms
+# programming-paradigms
 
 Battleship-game made with clojurescript
 
